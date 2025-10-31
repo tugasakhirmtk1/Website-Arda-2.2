@@ -1,0 +1,550 @@
+/* ==========================================================
+   SISTEM TEMA: DARK MODE & LIGHT MODE (VIOLET EDITION)
+   ========================================================== */
+:root {
+  /* === DARK MODE === */
+  --bg:#0b1220;
+  --card:#0f1724;
+  --muted:#9aa9c9;
+  --text:#e6eef8;
+  --accent:#36c2a6;
+  --accent-2:#4aa3ff;
+  --danger:#ff7a7a;
+  --glass: rgba(255,255,255,0.02);
+  --radius:14px;
+}
+
+/* === LIGHT MODE (VIOLET THEME) === */
+:root.light {
+  --bg:#f6f4ff;             /* lembut putih keunguan */
+  --card:#ffffff;
+  --text:#2b1b47;           /* ungu tua */
+  --muted:#6e5b99;          /* ungu abu lembut */
+  --accent:#7c3aed;         /* ungu utama */
+  --accent-2:#a855f7;       /* ungu muda gradasi */
+  --danger:#ff4d6d;
+  --glass:rgba(0,0,0,0.03);
+}
+
+/* TRANSISI TEMA */
+body {
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ==========================================================
+   GLOBAL STYLE
+   ========================================================== */
+*{box-sizing:border-box}
+/* ==========================================================
+   FULLSCREEN BACKGROUND — DARK & LIGHT MODE HALUS
+   ========================================================== */
+html, body {
+  height: 120%;
+  margin: 0;
+  padding: 0;
+  font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+
+  /* DARK MODE */
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(30,40,70,0.08), transparent 70%),
+    radial-gradient(circle at 80% 20%, rgba(54,60,90,0.06), transparent 70%),
+    radial-gradient(circle at 50% 80%, rgba(20,25,50,0.04), transparent 70%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* LIGHT MODE HALUS */
+:root.light html, :root.light body {
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(circle at 10% 10%, rgba(124,58,237,0.03), transparent 70%),
+    radial-gradient(circle at 80% 20%, rgba(160,90,240,0.02), transparent 70%),
+    radial-gradient(circle at 50% 80%, rgba(200,180,255,0.01), transparent 70%);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+
+/* ==========================================================
+   DROPDOWN
+   ========================================================== */
+.dropdown-dark {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background-color: #0f1724;
+  color: #e6eef8;
+  border: 1px solid rgba(255,255,255,0.05);
+  font-size: 14px;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.dropdown-dark:hover { background-color: #1a2338; }
+.dropdown-dark:focus {
+  border-color: #36c2a6;
+  box-shadow: 0 0 0 2px rgba(54,194,166,0.4);
+}
+
+/* Light mode dropdown */
+.light .dropdown-dark {
+  background-color: #ffffff;
+  color: #2b1b47;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.light .dropdown-dark:hover {
+  background-color: #f3edff;
+  border-color: var(--accent);
+}
+
+/* ==========================================================
+   LAYOUT & CONTAINER
+   ========================================================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr .9fr;
+  gap: 18px;
+}
+/* ==========================================================
+   HEADER — GAYA SEPERTI DI CONTOH GAMBAR
+   ========================================================== */
+header.header-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 18px;
+  padding-left: 165px;
+}
+
+header.header-wrapper h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.3;
+}
+
+header.header-wrapper .sub {
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* Tombol tema di kanan atas (tetap floating tapi rapi) */
+#themeToggle {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  z-index: 1000;
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+/* Responsif (biar tetap rapi di layar kecil) */
+@media (max-width: 768px) {
+  header.header-wrapper {
+    align-items: flex-start;
+    padding-left: 0;
+  }
+  #themeToggle {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+
+.flex {display:flex;gap:10px;align-items:center}
+.col {display:flex;flex-direction:column;gap:8px}
+
+/* Responsif */
+@media (max-width:980px){
+  .container{grid-template-columns:1fr; padding-bottom:36px}
+  .footer-panels{grid-template-columns:1fr}
+  .kcell{width:52px;height:44px}
+}
+
+/* ==========================================================
+   CARD & ELEMENT DASAR
+   ========================================================== */
+.card {
+  background:linear-gradient(180deg,var(--card),rgba(0,0,0,0.02));
+  border-radius:var(--radius);
+  padding:16px;
+  border:1px solid rgba(255,255,255,0.02);
+  box-shadow:0 6px 18px rgba(2,6,23,0.4);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.card .kmap-container {
+  padding: 12px;
+  background: var(--card);
+}
+.light .card {
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,0.05);
+  box-shadow:0 8px 20px rgba(124,58,237,0.12);
+}
+
+/* ==========================================================
+   INPUT & TEKS
+   ========================================================== */
+label {font-size:13px;color:var(--muted)}
+input[type=text], textarea, select{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.03);
+  background:var(--glass);
+  color:var(--text);
+  outline:none;
+  font-size:14px;
+  transition: 0.25s;
+}
+textarea{min-height:90px;resize:vertical}
+input:focus, textarea:focus {
+  border-color:var(--accent);
+  background:var(--card);
+}
+
+/* ==========================================================
+   BUTTONS
+   ========================================================== */
+.btn {
+  padding:8px 12px;
+  border-radius:10px;
+  border:none;
+  background:linear-gradient(180deg,var(--accent),var(--accent-2));
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition: all 0.25s ease;
+}
+.btn:hover {
+  transform:translateY(-2px);
+  opacity:0.9;
+}
+.btn.secondary {
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.1);
+  color:var(--text);
+}
+.btn.warn {
+  background:linear-gradient(180deg,#ff9c6b,#ff7a4d);
+}
+
+.btn.active {
+  background-color: var(--accent);
+  color: white;
+  font-weight: 600;
+  border-color: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+/* === 🌙 Dark Mode Button Styling (Cyan Edition) === */
+.btn-toggle {
+  border: 2px solid rgba(94, 234, 212, 0.5);
+  background: transparent;
+  color: #5eead4;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  padding: 6px 18px;
+}
+
+.btn-toggle:hover {
+  background: rgba(45, 212, 191, 0.08);
+  box-shadow: 0 0 10px rgba(94, 234, 212, 0.3);
+}
+
+.btn-toggle.active {
+  background: linear-gradient(135deg, #38bdf8, #2dd4bf);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+}
+
+/* Tombol Reset di Dark Mode */
+.btn-reset {
+  border: 2px solid rgba(94, 234, 212, 0.4);
+  background: transparent;
+  color: #5eead4;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+
+.btn-reset:hover {
+  background: rgba(56, 189, 248, 0.08);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
+}
+
+/* === 🌤️ Light Mode Button Styling (Violet Edition) === */
+.light .btn-toggle {
+  border: 2px solid rgba(155, 92, 255, 0.6);
+  background: transparent;
+  color: #7b2ff7;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  padding: 6px 18px;
+}
+
+.light .btn-toggle:hover {
+  background: rgba(155, 92, 255, 0.08);
+  box-shadow: 0 0 10px rgba(155, 92, 255, 0.2);
+}
+
+.light .btn-toggle.active {
+  background: linear-gradient(135deg, #9b5cff, #7b2ff7);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 12px rgba(155, 92, 255, 0.4);
+}
+
+/* Tombol Reset di Light Mode */
+.light .btn-reset {
+  border: 2px solid rgba(155, 92, 255, 0.4);
+  background: transparent;
+  color: #7b2ff7;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+
+.light .btn-reset:hover {
+  background: rgba(155, 92, 255, 0.08);
+  box-shadow: 0 0 8px rgba(155, 92, 255, 0.3);
+}
+
+
+
+
+/* Light mode special button style */
+.light .btn {
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  box-shadow:0 4px 10px rgba(124,58,237,0.2);
+}
+.light .btn.secondary {
+  background:#f9f7ff;
+  color:var(--accent);
+  border:1px solid var(--accent);
+}
+
+
+/* ==========================================================
+   K-MAP TABLE — SEUKURAN CARD DI CONTOH
+   ========================================================== */
+.kmap-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.4);
+  padding: 20px 28px;
+  margin-top: 20px;
+  width: 100%;
+  min-height: 380px;           /* tinggi card seperti di contoh */
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+/* Bungkus tabel */
+#kmapWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 16px;
+  overflow-x: auto;
+}
+
+/* Tabel utama */
+.kmap-horizontal {
+  border-collapse: separate;
+  border-spacing: 8px;          /* jarak antar kotak */
+  text-align: center;
+  background: transparent;
+  transition: transform 0.25s ease;
+}
+
+/* Kotak sel */
+.kmap-horizontal td {
+  width: 72px;                  /* ukuran lebih besar agar jelas */
+  height: 72px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  transition: all 0.25s ease;
+}
+
+/* Efek hover */
+.kmap-horizontal td:hover {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Sel aktif */
+.kmap-cell.on {
+  background: linear-gradient(180deg, var(--accent-2), var(--accent));
+  color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* Don’t care (d) */
+.kmap-cell.dc {
+  background: linear-gradient(180deg, #ffb84d, #ff9800);
+  color: #fff;
+}
+
+/* Label indeks */
+.kmap-horizontal td::after {
+  content: attr(data-idx);
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* === LIGHT MODE === */
+.light .kmap-container {
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.12);
+}
+
+.light .kmap-horizontal td {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.light .kmap-horizontal td:hover {
+  background: rgba(124, 58, 237, 0.08);
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.15);
+}
+
+.light .kmap-cell.on {
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  color: #fff;
+}
+
+.light .kmap-cell.dc {
+  background: linear-gradient(180deg, #ffb84d, #ff7a00);
+  color: #fff;
+}
+/* ==========================================================
+   TABEL KEBENARAN (TRUTH TABLE)
+   Dengan garis abu-abu vertikal & horizontal di semua tema
+   ========================================================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  border: 1px solid rgba(128, 128, 128, 0.25); /* bingkai luar tabel */
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--card);
+}
+
+/* === DARK MODE === */
+th, td {
+  text-align: center;
+  padding: 8px;
+  border: 1px solid rgba(128, 128, 128, 0.25); /* abu-abu lembut */
+  color: var(--text);
+  transition: background 0.2s ease;
+}
+
+/* Warna baris bergantian (striped rows) untuk dark mode */
+tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Hover efek */
+tr:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* === LIGHT MODE === */
+.light table {
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  background: #ffffff;
+}
+
+.light th, .light td {
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  color: var(--text);
+}
+
+.light tr:nth-child(even) {
+  background: rgba(124, 58, 237, 0.03); /* lembut ungu muda */
+}
+.light tr:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.light tr:hover {
+  background: rgba(124, 58, 237, 0.07); /* efek hover ringan */
+}
+
+.controls {
+  display: flex;
+  flex-direction: column; /* susun tombol ke bawah */
+  gap: 8px; /* jarak antar tombol */
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.controls .btn {
+  width: 100%; /* tombol melebar penuh agar sejajar */
+}
+
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .btn, #themeToggle {
+    display: none !important;
+  }
+  .card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}
+
+/* ==========================================================
+   MISC
+   ========================================================== */
+.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted);font-size:13px}
+.muted{color:var(--muted)}
+.sep{height:1px;background:rgba(255,255,255,0.02);margin:10px 0;border-radius:4px}
+.footer-panels{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.tt{max-height:320px;overflow:auto;border:1px solid rgba(255,255,255,0.02);border-radius:10px;padding:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:center;padding:8px;border-bottom:1px solid rgba(255,255,255,0.02)}
+.mini{font-size:12px;color:var(--muted)}
+.right-help{font-size:13px;color:var(--muted);line-height:1.4}
+.caption{font-size:13px;color:var(--muted)}
+.code{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;background:var(--glass);padding:8px;border-radius:8px}
