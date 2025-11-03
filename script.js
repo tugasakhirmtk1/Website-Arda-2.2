@@ -217,29 +217,39 @@ btnSOP.addEventListener("click", () => {
 
         // === TOGGLE THEME (DARK / LIGHT) ===
     const toggle = document.getElementById("themeToggle");
-    if (toggle) {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") document.documentElement.classList.add("light");
 
+if (toggle) {
+  // Ambil preferensi tema yang tersimpan
+  const savedTheme = localStorage.getItem("theme");
 
-  // Update teks tombol sesuai tema awal
-  toggle.textContent = document.documentElement.classList.contains("light")
-    ? "🌙 Mode Gelap"
-    : "☀️ Mode Terang";
+  // Terapkan tema awal
+  if (savedTheme === "light") {
+    document.documentElement.classList.add("light");
+  } else {
+    document.documentElement.classList.remove("light");
+  }
 
-  // Saat diklik, ubah tema
+  // Atur teks tombol sesuai tema awal
+  const updateButtonText = () => {
+    const isLight = document.documentElement.classList.contains("light");
+    toggle.textContent = isLight ? "🌙 Mode Gelap" : "☀️ Mode Terang";
+  };
+
+  updateButtonText();
+
+  // Ketika tombol diklik
   toggle.addEventListener("click", () => {
     document.documentElement.classList.toggle("light");
-    const newTheme = document.documentElement.classList.contains("light") ? "light" : "dark";
-    localStorage.setItem("theme", newTheme);
+    const isLight = document.documentElement.classList.contains("light");
 
-    // Simpan preferensi
+    // Simpan tema baru
     localStorage.setItem("theme", isLight ? "light" : "dark");
 
-    // Ubah label tombol
-    toggle.textContent = isLight ? "🌙 Mode Gelap" : "☀️ Mode Terang";
+    // Perbarui teks tombol
+    updateButtonText();
   });
 }
+
 
         // === BENCHMARK QUINE-MCCLUSKEY (versi nyata, 2–4 variabel) ===
         document.getElementById("btn-benchmark")?.addEventListener("click", () => {
