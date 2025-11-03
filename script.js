@@ -530,7 +530,7 @@ btnSOP.addEventListener("click", () => {
     }
 
 
-        document.querySelector("#btn-eval").onclick = () => {
+    document.querySelector("#btn-eval").onclick = () => {
     const expr = document.querySelector("#expr").value.trim();
     if (!expr) return;
 
@@ -627,6 +627,63 @@ document.getElementById("exportPrintBtn")?.addEventListener("click", async () =>
     alert("Terjadi kesalahan saat membuat tampilan siap cetak.");
   }
 });
+
+// ======== EKSPOR GAMBAR TANPA html2canvas ========
+// Fungsi untuk mengekspor elemen K-Map ke gambar PNG menggunakan Canvas API
+document.getElementById("exportImgBtn").addEventListener("click", () => {
+  const kmapEl = document.getElementById("kmapWrap");
+  const svgData = new XMLSerializer().serializeToString(kmapEl);
+
+  // Cek apakah K-Map berbentuk SVG (ideal)
+  if (kmapEl.querySelector("svg")) {
+    const svg = kmapEl.querySelector("svg");
+    const svgString = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const img = new Image();
+    const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+
+      // Buat link download
+      const a = document.createElement("a");
+      a.download = "kmap.png";
+      a.href = canvas.toDataURL("image/png");
+      a.click();
+    };
+    img.src = url;
+  } else {
+    // Jika bukan SVG (misal: tabel biasa)
+    const rect = kmapEl.getBoundingClientRect();
+    const canvas = document.createElement("canvas");
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+    const ctx = canvas.getContext("2d");
+
+    // Gaya dasar
+    ctx.fillStyle = getComputedStyle(document.body).getPropertyValue("--bg") || "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#333";
+    ctx.font = "14px Inter, sans-serif";
+    ctx.textBaseline = "top";
+    ctx.fillText("Tampilan K-Map (snapshot teks)", 10, 10);
+
+    const a = document.createElement("a");
+    a.download = "kmap.png";
+    a.href = canvas.toDataURL("image/png");
+    a.click();
+  }
+
+  document.getElementById("validation").textContent =
+    "📸 Gambar K-Map berhasil diekspor (tanpa html2canvas).";
+});
+
 
     // === Highlight otomatis pada K-Map ===
     function highlightKmapCells() {
@@ -850,4 +907,4 @@ document.getElementById("exportPrintBtn")?.addEventListener("click", async () =>
         btnReset.addEventListener("click", resetKmap);
 
         // Render awal
-        renderKmap();
+        renderKmap();   
